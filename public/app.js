@@ -8,7 +8,11 @@
    * init of webpage
    */
   function init() {
-  
+    id("header").addEventListener("click", returnMain);
+  }
+
+  function returnMain() {
+    window.location.href = "index.html";
   }
 
 

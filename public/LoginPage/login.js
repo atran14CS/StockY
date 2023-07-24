@@ -12,6 +12,11 @@
     for(let i = 0; i < logOptions.length; i++) {
       logOptions[i].addEventListener("click", changeOption);
     }
+    qs("h1").addEventListener("click", returnMain);
+  }
+
+  function returnMain() {
+    window.location.href = "/index.html";
   }
 
   function changeOption() {
