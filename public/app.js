@@ -9,11 +9,21 @@
    */
   function init() {
     id("header").addEventListener("click", returnMain);
+    loadTrendingSnrks();
   }
 
   function returnMain() {
     window.location.href = "index.html";
   }
+
+  function loadTrendingSnrks() {
+    fetch('/information/name')
+    .then(statusCheck)
+    .then(res => res.json())
+    .then(displayNew)
+    .catch(console.error);
+  }
+
 
 
   /** ------------------------------ Helper Functions  ------------------------------ */
