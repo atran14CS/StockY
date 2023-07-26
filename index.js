@@ -17,7 +17,7 @@ const sqlite = require('sqlite');
  */
 async function getDBConnection() {
   const db = await sqlite.open({
-    filename: "hotel.db",
+    filename: "stocky.db",
     driver: sqlite3.Database
   });
   return db;
@@ -28,6 +28,7 @@ app.get('/trending/snekaers', async (req, res) => {
     let query = "SELECT * FROM Trending LIMIT 5";
     let db = await getDBConnection();
     let result = await db.all(query);
+    console.log(result);
     res.json(result);
     await db.close();
   } catch {

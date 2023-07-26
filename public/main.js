@@ -17,11 +17,28 @@
   }
 
   function loadTrendingSnrks() {
-    fetch('/information/name')
+    fetch('/trending/snekaers')
     .then(statusCheck)
     .then(res => res.json())
     .then(displayNew)
     .catch(console.error);
+  }
+
+  function displayNew(data) {
+    for(let i = 0; i < data.length; i++) {
+      let section = gen("section");
+      section.classList.add("trending-card");
+      let img = gen("img");
+      let lowestAsk = gen("p");
+      let sold = gen("p");
+      img.src = "trending-sneaker/" + data[i].Name +".jpeg";
+      lowestAsk.textContent = "Lowest Ask " + data[i].LowestAsk;
+      sold.textContent = "Sold " + data[i].Sold;
+      section.appendChild(img);
+      section.appendChild(lowestAsk);
+      section.appendChild(sold);
+      id("trending-display").appendChild(section);
+    }
   }
 
 

@@ -8,6 +8,7 @@
    * init of webpage
    */
   function init() {
+    console.log("here");
     let logOptions = qsa(".log-type");
     for(let i = 0; i < logOptions.length; i++) {
       logOptions[i].addEventListener("click", changeOption);
