@@ -10,6 +10,12 @@
   function init() {
     id("header").addEventListener("click", returnMain);
     loadTrendingSnrks();
+    let trending = qsa(".trending-card");
+    for(let i = 0; i < trending.length; i++) {
+      trending[i].addEventListener("click", { //find a way to get the the imgsrc to be transfer over to the product page
+
+      });
+    }
   }
 
   function returnMain() {
@@ -28,17 +34,24 @@
     for(let i = 0; i < data.length; i++) {
       let section = gen("section");
       section.classList.add("trending-card");
+      let link = gen("a")
       let img = gen("img");
       let lowestAsk = gen("p");
       let sold = gen("p");
+      link.href = "productpage/product.html";
       img.src = "trending-sneaker/" + data[i].Name +".jpeg";
       lowestAsk.textContent = "Lowest Ask " + data[i].LowestAsk;
       sold.textContent = "Sold " + data[i].Sold;
-      section.appendChild(img);
+      link.appendChild(img)
+      section.appendChild(link);
       section.appendChild(lowestAsk);
       section.appendChild(sold);
       id("trending-display").appendChild(section);
     }
+  }
+
+  function displayProduct() {
+
   }
 
 

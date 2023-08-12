@@ -28,7 +28,6 @@ app.get('/trending/snekaers', async (req, res) => {
     let query = "SELECT * FROM Trending LIMIT 5";
     let db = await getDBConnection();
     let result = await db.all(query);
-    console.log(result);
     res.json(result);
     await db.close();
   } catch {
