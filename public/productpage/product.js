@@ -4,57 +4,13 @@
 
   window.addEventListener("load", init);
 
+  /**
+   * init of webpage
+   */
   function init() {
-    id("header").addEventListener("click", returnMain);
-    loadTrendingSnrks();
-    // let trending = qsa(".trending-card");
-    // for(let i = 0; i < trending.length; i++) {
-    //   trending[i].addEventListener("click", displayProduct);
-    // }
+    console.log("working");
   }
 
-  function returnMain() {
-    window.location.href = "index.html";
-  }
-
-  function loadTrendingSnrks() {
-    fetch('/trending/snekaers')
-    .then(statusCheck)
-    .then(res => res.json())
-    .then(displayNew)
-    .catch(console.error);
-  }
-
-  function displayNew(data) {
-    for(let i = 0; i < data.length; i++) {
-      let section = gen("section");
-      section.classList.add("trending-card");
-      let img = gen("img");
-      let lowestAsk = gen("p");
-      let sold = gen("p");
-      img.src = "trending-sneaker/" + data[i].Name +".jpeg";
-      img.alt = data[i].Name;
-      lowestAsk.textContent = "Lowest Ask " + data[i].LowestAsk;
-      sold.textContent = "Sold " + data[i].Sold;
-      section.appendChild(img);
-      section.appendChild(lowestAsk);
-      section.appendChild(sold);
-      id("trending-display").appendChild(section);
-    }
-    giveShoeIcon();
-  }
-
-  function giveShoeIcon() {
-    let trending = qsa("img");
-    for(let i = 0; i < trending.length; i++) {
-      trending[i].addEventListener("click", displayProduct);
-    }
-  }
-
-  function displayProduct(event) {
-    let product = event.currentTarget.alt;
-    localStorage.setItem("clicked-product", product);
-  }
 
   /** ------------------------------ Helper Functions  ------------------------------ */
   /**
