@@ -1,3 +1,7 @@
+h1 {
+  color:rgb(9, 103, 0);
+}
+
 #product {
   padding-top: 30px;
   display: flex;

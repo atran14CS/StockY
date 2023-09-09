@@ -8,7 +8,19 @@
    * init of webpage
    */
   function init() {
-    console.log("working");
+    qs("h1").addEventListener("click", returnMain);
+    loadImg();
+  }
+
+  //redirects to homepage upon clicking on the STOCK Y
+  function returnMain() {
+    window.location.href = "../index.html";
+  }
+
+  function loadImg() {
+    let pic = localStorage.getItem("clicked-product");
+    console.log(pic);
+    document.getElementById("clicked-item").src = "../trending-sneaker/" + pic + ".jpeg";
   }
 
 

@@ -7,16 +7,15 @@
   function init() {
     id("header").addEventListener("click", returnMain);
     loadTrendingSnrks();
-    // let trending = qsa(".trending-card");
-    // for(let i = 0; i < trending.length; i++) {
-    //   trending[i].addEventListener("click", displayProduct);
-    // }
   }
 
+  //redirects to homepage upon clicking on the STOCK Y
   function returnMain() {
     window.location.href = "index.html";
   }
 
+  //sends an api request to the fetch endpoint if successful covert to json and enter
+  //display new. Otherwise console the error.
   function loadTrendingSnrks() {
     fetch('/trending/snekaers')
     .then(statusCheck)
@@ -25,6 +24,7 @@
     .catch(console.error);
   }
 
+  //Goes through the trending shoe data and creates dom elements to display the shoes.
   function displayNew(data) {
     for(let i = 0; i < data.length; i++) {
       let section = gen("section");
@@ -41,19 +41,19 @@
       section.appendChild(sold);
       id("trending-display").appendChild(section);
     }
-    giveShoeIcon();
+    addClickEventAndStoreAlt();
   }
 
-  function giveShoeIcon() {
+  //gives each tredning shoe an event and will store the shoe alt that is clicked on.
+  function addClickEventAndStoreAlt() {
     let trending = qsa("img");
-    for(let i = 0; i < trending.length; i++) {
-      trending[i].addEventListener("click", displayProduct);
+    for (let i = 0; i < trending.length; i++) {
+      trending[i].addEventListener("click", function(event) {
+        let product = event.currentTarget.alt;
+        localStorage.setItem("clicked-product", product);
+        window.location.href = "productpage/product.html";
+      });
     }
-  }
-
-  function displayProduct(event) {
-    let product = event.currentTarget.alt;
-    localStorage.setItem("clicked-product", product);
   }
 
   /** ------------------------------ Helper Functions  ------------------------------ */
