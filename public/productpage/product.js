@@ -9,7 +9,9 @@
    */
   function init() {
     qs("h1").addEventListener("click", returnMain);
-    loadImg();
+    loadProduct();
+    let sizes = qsa(".dropdown-item");
+    clickedSize(sizes);
   }
 
   //redirects to homepage upon clicking on the STOCK Y
@@ -17,10 +19,18 @@
     window.location.href = "../index.html";
   }
 
-  function loadImg() {
+  function loadProduct() {
     let pic = localStorage.getItem("clicked-product");
-    console.log(pic);
     document.getElementById("clicked-item").src = "../trending-sneaker/" + pic + ".jpeg";
+    id("item-name").textContent = pic.replace(/-/g, ' ');
+  }
+
+  function clickedSize(sizes) {
+    for(let i = 0; i < sizes.length; i++) {
+      sizes[i].addEventListener("click", function(event) {
+        id("size-btn").textContent = event.target.textContent;
+      });
+    }
   }
 
 

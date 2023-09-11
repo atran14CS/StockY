@@ -18,11 +18,11 @@ img {
   border-radius: 10px;
   border-color: rgb(234, 234, 234);
   padding-bottom: 35px;
-  padding-right: 100px;
+  padding-right: 50%;
 }
 
 button, h2 {
-  width: 143%;
+  width: 203%;
 }
 
 h2 {
