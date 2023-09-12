@@ -37,9 +37,33 @@ app.get('/trending/snekaers', async (req, res) => {
   }
 });
 
-// app.post('/lowestAsk', async(req, res) => {
-//   let query = "Select "
-// });
+app.post('/lgoin', async(req, res) => {
+  try {
+    if (!req.body.email || !req.body.password) {
+      res.status(400);
+      res.type('text');
+      res.send("Missing either password or username");
+    } else {
+      let db = await getDBConnection();
+      let email = req.body.email;
+      let password = req.body.password;
+      let query = "SELECT email FROM Users WHERE email = ? and password = ?";
+      let result = await db.get(query, [email, password]);
+      if (result) {
+        res.type('text').send("successful login");
+      } else {
+        res.status(400);
+        res.type('text');
+        res.send("Invalid username or password");
+      }
+      await db.close();
+    }
+  } catch (err) {
+    res.status(500);
+    res.type('text');
+    res.send('an error has occured in our server please check back again later');
+  }
+});
 
 
 
