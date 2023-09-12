@@ -13,12 +13,12 @@
     for(let i = 0; i < logOptions.length; i++) {
       logOptions[i].addEventListener("click", changeOption);
     }
-    qs("h1").addEventListener("click", returnMain);
+    qs("h1").addEventListener("click", function() {
+      window.location.href = "/index.html";
+    });
+    sendLogin();
   }
 
-  function returnMain() {
-    window.location.href = "/index.html";
-  }
 
   function changeOption() {
     if (id("login-option-l").classList.contains("underline")) {
@@ -32,6 +32,33 @@
       id("sign-up").classList.add("hidden");
       id("login-page").classList.remove("hidden");
     }
+  }
+
+  function sendLogin() {
+    let email = document.querySelector('#login-page input[name="user"][placeholder="Email Address"]');
+    let password = document.querySelector('#login-page input[name="password"][placeholder="Password"]');
+    let loginBtn = id("login-btn");
+    loginBtn.addEventListener("submit", function(event) {
+      event.preventDefault();
+      fetchLogin(email.value, password.value);
+    });
+  }
+
+  function fetchLogin(email, password) {
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", password);
+    let formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+    fetch("/login", {method: "POST", body: formData})
+      .then(statusCheck)
+      .then(res => res.text())
+      .then(grantAcess)
+      .catch(console.error);
+  }
+
+  function grantAcess() {
+
   }
 
 

@@ -23,6 +23,7 @@
     let pic = localStorage.getItem("clicked-product");
     document.getElementById("clicked-item").src = "../trending-sneaker/" + pic + ".jpeg";
     id("item-name").textContent = pic.replace(/-/g, ' ');
+    id("lowest-ask").textContent = "Lowest Ask: " + localStorage.getItem("lowest-ask");
   }
 
   function clickedSize(sizes) {

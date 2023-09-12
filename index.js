@@ -37,6 +37,10 @@ app.get('/trending/snekaers', async (req, res) => {
   }
 });
 
+// app.post('/lowestAsk', async(req, res) => {
+//   let query = "Select "
+// });
+
 
 
 

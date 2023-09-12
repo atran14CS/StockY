@@ -41,16 +41,21 @@
       section.appendChild(sold);
       id("trending-display").appendChild(section);
     }
-    addClickEventAndStoreAlt();
+    addClickEventAndStoreAlt(data);
   }
 
   //gives each tredning shoe an event and will store the shoe alt that is clicked on.
-  function addClickEventAndStoreAlt() {
+  function addClickEventAndStoreAlt(data) {
     let trending = qsa("img");
     for (let i = 0; i < trending.length; i++) {
       trending[i].addEventListener("click", function(event) {
         let product = event.currentTarget.alt;
         localStorage.setItem("clicked-product", product);
+        for(let i = 0; i < data.length; i++) {
+          if(data[i].Name == product) {
+            localStorage.setItem("lowest-ask", data[i].LowestAsk);
+          }
+        }
         window.location.href = "productpage/product.html";
       });
     }
