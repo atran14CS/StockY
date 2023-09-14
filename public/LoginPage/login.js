@@ -8,7 +8,6 @@
    * init of webpage
    */
   function init() {
-    console.log("here");
     let logOptions = qsa(".log-type");
     for(let i = 0; i < logOptions.length; i++) {
       logOptions[i].addEventListener("click", changeOption);
@@ -35,10 +34,10 @@
   }
 
   function sendLogin() {
-    let email = document.querySelector('#login-page input[name="user"][placeholder="Email Address"]');
-    let password = document.querySelector('#login-page input[name="password"][placeholder="Password"]');
-    let loginBtn = id("login-btn");
-    loginBtn.addEventListener("submit", function(event) {
+    let email = document.querySelector('#login-form input[name="email"][placeholder="Email Address"]');
+    let password = document.querySelector('#login-form input[name="password"][placeholder="Password"]');
+    let form = id("login-form");
+    form.addEventListener("submit", function(event) {
       event.preventDefault();
       fetchLogin(email.value, password.value);
     });
@@ -57,8 +56,13 @@
       .catch(console.error);
   }
 
-  function grantAcess() {
-
+  function grantAcess(msg) {
+    console.log(msg);
+    if(msg === "successful login") {
+      console.log("msg received");
+    } else {
+      console.log("failure login");
+    }
   }
 
 
