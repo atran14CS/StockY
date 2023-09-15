@@ -59,9 +59,10 @@
   function grantAcess(msg) {
     console.log(msg);
     if(msg === "successful login") {
-      console.log("msg received");
+      window.location.href = "/index.html";
+      localStorage.setItem("login", "true");
     } else {
-      console.log("failure login");
+      id("server-msg").textContent = "incoreect password or username";
     }
   }
 

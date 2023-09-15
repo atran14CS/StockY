@@ -6,7 +6,11 @@
 
   function init() {
     id("header").addEventListener("click", returnMain);
+    id("login-sign").addEventListener("click", function() {
+      window.location.href = "LoginPage/login.html";
+    });
     loadTrendingSnrks();
+    checkLogin();
   }
 
   //redirects to homepage upon clicking on the STOCK Y
@@ -58,6 +62,13 @@
         }
         window.location.href = "productpage/product.html";
       });
+    }
+  }
+
+  //checks if account is logged in and allows access to use account.
+  function checkLogin() {
+    if(localStorage.getItem("login") === "true") {
+      id("login-sign").textContent = "Profile";
     }
   }
 

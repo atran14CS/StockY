@@ -47,9 +47,6 @@ app.post('/login', async(req, res) => {
       let db = await getDBConnection();
       let email = req.body.email;
       let password = req.body.password;
-      console.log(email);
-      console.log(password);
-      console.log("hello");
       let query = "SELECT email FROM Users WHERE email = ? and password = ?";
       let result = await db.get(query, [email, password]);
       if (result) {

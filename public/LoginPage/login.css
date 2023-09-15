@@ -50,3 +50,8 @@ button {
   background-color: black;
   color: white;
 }
+
+#server-msg {
+  text-align: center;
+  padding-bottom: 10px;
+}
