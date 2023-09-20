@@ -5,7 +5,9 @@
   window.addEventListener("load", init);
 
   function init() {
-    id("header").addEventListener("click", returnMain);
+    id("header").addEventListener("click", function() {
+      window.location.href = "index.html";
+    });
     id("login-sign").addEventListener("click", function() {
       window.location.href = "LoginPage/login.html";
     });
@@ -13,10 +15,21 @@
     checkLogin();
   }
 
-  //redirects to homepage upon clicking on the STOCK Y
-  function returnMain() {
-    window.location.href = "index.html";
-  }
+    //checks if account is logged in and allows access to use account
+    //otherwise sends user to login sign up page.
+    function checkLogin() {
+      if(localStorage.getItem("login") === "true") {
+        id("login-sign").textContent = "Profile";
+        id("login-sign").addEventListener("click", function() {
+          window.location.href = "user-page/userpage.html";
+        });
+      } else {
+        id("login").textContent = "Login/Sign Up";
+        id("login-sign").addEventListener("click", function() {
+          window.location.href = "loginPage/login.html";
+        });
+      }
+    }
 
   //sends an api request to the fetch endpoint if successful covert to json and enter
   //display new. Otherwise console the error.
@@ -62,13 +75,6 @@
         }
         window.location.href = "productpage/product.html";
       });
-    }
-  }
-
-  //checks if account is logged in and allows access to use account.
-  function checkLogin() {
-    if(localStorage.getItem("login") === "true") {
-      id("login-sign").textContent = "Profile";
     }
   }
 
