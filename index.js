@@ -65,6 +65,46 @@ app.post('/login', async(req, res) => {
   }
 });
 
+app.get('/user/profile', async (req, res) => {
+  try {
+    let query = "SELECT * FROM Users";
+    let db = await getDBConnection();
+    let result = await db.all(query);
+    res.json(result);
+    await db.close();
+  } catch {
+    res.status(500);
+    res.type('text');
+    res.send('an error has occured in the server');
+  }
+});
+
+app.post('/user/profile', async (req, res) => {
+  try {
+    if (req.body.email) {
+      res.status(400);
+      res.type('text');
+      res.send("Missing email");
+    } else {
+      let db = await getDBConnection();
+      let email = req.body.email;
+      let query = SELECT * "SELECT * FROM Users WHERE email = ?";
+      let result = await db.get(query, email);
+      if (result) {
+        res.json(result);
+      } else {
+        res.status(400);
+        res.type('text');
+        res.send("no informaion found on user");
+      }
+    }
+  } catch(err) {
+    res.status(500);
+    res.type('text');
+    res.send("an error has occured in our server please try again later");
+  }
+})
+
 
 
 

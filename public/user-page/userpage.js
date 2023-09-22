@@ -15,6 +15,20 @@
       localStorage.setItem("login", "false");
       window.location.href = "/index.html";
     });
+    loadUserInfo();
+  }
+
+  function loadUserInfo() {
+    fetch('/user/profile')
+    fetch('/trending/snekaers')
+    .then(statusCheck)
+    .then(res => res.json())
+    .then(displayUserInfo)
+    .catch(console.error);
+  }
+
+  function displayUserInfo(data) {
+    console.log(data);
   }
 
 
