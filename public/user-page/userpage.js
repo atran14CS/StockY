@@ -19,16 +19,31 @@
   }
 
   function loadUserInfo() {
-    fetch('/user/profile')
-    fetch('/trending/snekaers')
-    .then(statusCheck)
-    .then(res => res.json())
-    .then(displayUserInfo)
-    .catch(console.error);
+    let email = localStorage.getItem("email");
+    let formData = new FormData();
+    formData.append("email", email);
+    fetch('/user/profile', {method: "POST", body: formData})
+      .then(statusCheck)
+      .then(res => res.json())
+      .then(displayUserInfo)
+      .catch(console.error)
   }
 
   function displayUserInfo(data) {
     console.log(data);
+    let email = data.email;
+    let bids = data.bids;
+    let purchases = data.purchases;
+    console.log(email);
+    id("email").appendChild(displayUserInfoHelper(email));
+    id("bids").appendChild(displayUserInfoHelper(bids));
+    id("purchases").appendChild(displayUserInfoHelper(purchases));
+  }
+
+  function displayUserInfoHelper(informaion) {
+    let info = gen("p");
+    info.textContent = informaion;
+    return info
   }
 
 

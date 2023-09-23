@@ -65,30 +65,30 @@ app.post('/login', async(req, res) => {
   }
 });
 
-app.get('/user/profile', async (req, res) => {
-  try {
-    let query = "SELECT * FROM Users";
-    let db = await getDBConnection();
-    let result = await db.all(query);
-    res.json(result);
-    await db.close();
-  } catch {
-    res.status(500);
-    res.type('text');
-    res.send('an error has occured in the server');
-  }
-});
+// app.get('/user/profile', async (req, res) => {
+//   try {
+//     let query = "SELECT * FROM Users";
+//     let db = await getDBConnection();
+//     let result = await db.all(query);
+//     res.json(result);
+//     await db.close();
+//   } catch {
+//     res.status(500);
+//     res.type('text');
+//     res.send('an error has occured in the server');
+//   }
+// });
 
 app.post('/user/profile', async (req, res) => {
   try {
-    if (req.body.email) {
+    if (!req.body.email) {
       res.status(400);
       res.type('text');
-      res.send("Missing email");
+      res.send("Missing Email");
     } else {
       let db = await getDBConnection();
       let email = req.body.email;
-      let query = SELECT * "SELECT * FROM Users WHERE email = ?";
+      let query = "SELECT * FROM Users WHERE email = ?";
       let result = await db.get(query, email);
       if (result) {
         res.json(result);
