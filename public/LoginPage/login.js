@@ -16,6 +16,7 @@
       window.location.href = "/index.html";
     });
     sendLogin();
+    sendSign();
   }
 
 
@@ -57,13 +58,16 @@
   }
 
   function grantAcess(msg) {
-    console.log(msg);
     if(msg === "successful login") {
       window.location.href = "/index.html";
       localStorage.setItem("login", "true");
     } else {
       id("server-msg").textContent = "incoreect password or username";
     }
+  }
+
+  function sendSign() {
+    
   }
 
 

@@ -51,12 +51,12 @@ app.post('/login', async(req, res) => {
       let result = await db.get(query, [email, password]);
       if (result) {
         res.type('text').send("successful login");
+        await db.close();
       } else {
         res.status(400);
         res.type('text');
         res.send("Invalid username or password");
       }
-      await db.close();
     }
   } catch (err) {
     res.status(500);
@@ -64,20 +64,6 @@ app.post('/login', async(req, res) => {
     res.send('an error has occured in our server please check back again later');
   }
 });
-
-// app.get('/user/profile', async (req, res) => {
-//   try {
-//     let query = "SELECT * FROM Users";
-//     let db = await getDBConnection();
-//     let result = await db.all(query);
-//     res.json(result);
-//     await db.close();
-//   } catch {
-//     res.status(500);
-//     res.type('text');
-//     res.send('an error has occured in the server');
-//   }
-// });
 
 app.post('/user/profile', async (req, res) => {
   try {
@@ -92,6 +78,7 @@ app.post('/user/profile', async (req, res) => {
       let result = await db.get(query, email);
       if (result) {
         res.json(result);
+        await db.close();
       } else {
         res.status(400);
         res.type('text');
@@ -105,7 +92,29 @@ app.post('/user/profile', async (req, res) => {
   }
 })
 
-
+app.post('/signup', async (req, res) => {
+  try {
+    if(!req.body.fname || !req.body.lname || !req.body.email || !req.body.password) {
+      res.status(400);
+      res.type('text');
+      res.send("Missing one or more sign-up parameters");
+    } else {
+      let db = await getDBConnection();
+      let fname = req.body.firstName;
+      let lname = req.body.lastName;
+      let email = req.body.email;
+      let password = req.body.password;
+      let query = "INSERT INTO Users (email, password, fname, lname) VALUES(?, ?, ?, ?)";
+      await db.run(query, [email, password, fname, lname]);
+      res.status(200).send("User created successfully");
+      await db.close();
+    }
+  } catch(err) {
+    res.status(500);
+    res.type('text');
+    res.send("an error has occured in our server please try again later");
+  }
+});
 
 
 app.use(express.static('public'));
