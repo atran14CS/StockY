@@ -58,7 +58,7 @@
   }
 
   function grantAcess(msg) {
-    if(msg === "successful login") {
+    if(msg === "successful login" || msg === "User created successfully") {
       window.location.href = "/index.html";
       localStorage.setItem("login", "true");
     } else {
@@ -67,7 +67,33 @@
   }
 
   function sendSign() {
-    
+    let email = document.querySelector('#sign-form input[name="email"][placeholder="Email Address"]');
+    let password = document.querySelector('#sign-form input[name="password"][placeholder="Password"]');
+    let fname = document.querySelector('#sign-form input[name="first"][placeholder="First Name"]');
+    let lname = document.querySelector('#sign-form input[name="last"][placeholder="Last Name"]');
+    let form = id("sign-form");
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      updateUsers(email, password, fname, lname);
+    });
+
+  }
+
+  function updateUsers (email, password, fname, lname) {
+    let formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("fname", fname);
+    formData.append("lname", lname);
+    fetch("/signup", {method: "POST", body: formData})
+      .then(statusCheck)
+      .then(res=>res.text())
+      .then(testfunc)
+      .catch(console.error);
+  }
+
+  function testfunc(data) {
+    console.log(data);
   }
 
 

@@ -104,10 +104,16 @@ app.post('/signup', async (req, res) => {
       let lname = req.body.lastName;
       let email = req.body.email;
       let password = req.body.password;
-      let query = "INSERT INTO Users (email, password, fname, lname) VALUES(?, ?, ?, ?)";
-      await db.run(query, [email, password, fname, lname]);
-      res.status(200).send("User created successfully");
-      await db.close();
+      let queryCheck = "SELECT * FROM USERS WHERE email = ?"
+      let result = await db.get(queryCheck, email);
+      if(result) {
+        res.status(400).send("Email is already taken");
+      } else {
+        let query = "INSERT INTO Users (email, password, fname, lname) VALUES(?, ?, ?, ?)";
+        await db.run(query, [email, password, fname, lname]);
+        res.status(200).send("User created successfully");
+        await db.close();
+      }
     }
   } catch(err) {
     res.status(500);
