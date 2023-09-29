@@ -104,7 +104,7 @@ app.post('/signup', async (req, res) => {
       let lname = req.body.lastName;
       let email = req.body.email;
       let password = req.body.password;
-      let queryCheck = "SELECT * FROM USERS WHERE email = ?"
+      let queryCheck = "SELECT * FROM USERS WHERE email = ?";
       let result = await db.get(queryCheck, email);
       if(result) {
         res.status(400).send("Email is already taken");

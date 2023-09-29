@@ -76,24 +76,25 @@
       event.preventDefault();
       updateUsers(email, password, fname, lname);
     });
-
   }
 
   function updateUsers (email, password, fname, lname) {
+    let emailValue = email.value;
+    let passwordValue = password.value;
+    let fnameValue = fname.value;
+    let lnameValue = lname.value;
     let formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("fname", fname);
-    formData.append("lname", lname);
+    formData.append("email", emailValue);
+    formData.append("password", passwordValue);
+    formData.append("fname", fnameValue);
+    formData.append("lname", lnameValue);
     fetch("/signup", {method: "POST", body: formData})
       .then(statusCheck)
       .then(res=>res.text())
-      .then(testfunc)
+      .then(function() {
+        window.location.href = "/index.html";
+      })
       .catch(console.error);
-  }
-
-  function testfunc(data) {
-    console.log(data);
   }
 
 
