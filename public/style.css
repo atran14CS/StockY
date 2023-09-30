@@ -3,7 +3,11 @@ body {
 }
 
 #header {
-  color:rgb(9, 103, 0)
+  color:rgb(9, 103, 0);
+}
+
+#top-options {
+  height: 20px;
 }
 
 .nav-container {
@@ -30,9 +34,9 @@ li {
   transition: 0.5s;
 }
 
-li a:hover {
-  color: red;
-  border-bottom: 4px red solid;
+li:hover {
+  color:rgb(9, 103, 0);
+  border-bottom: 4px rgb(9, 103, 0) solid;
   transition: 0.5s;
 }
 

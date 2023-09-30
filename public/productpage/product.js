@@ -8,17 +8,18 @@
    * init of webpage
    */
   function init() {
-    qs("h1").addEventListener("click", returnMain);
+    qs("h1").addEventListener("click", function() {
+      window.location.href = "../index.html";
+    });
     loadProduct();
     let sizes = qsa(".dropdown-item");
     clickedSize(sizes);
+    buyNow();
   }
 
-  //redirects to homepage upon clicking on the STOCK Y
-  function returnMain() {
-    window.location.href = "../index.html";
-  }
-
+  /**
+   * Loads the clicked product page with the item clicked and the data for it.
+   */
   function loadProduct() {
     let pic = localStorage.getItem("clicked-product");
     document.getElementById("clicked-item").src = "../trending-sneaker/" + pic + ".jpeg";
@@ -26,11 +27,31 @@
     id("lowest-ask").textContent = "Lowest Ask: " + localStorage.getItem("lowest-ask");
   }
 
+  /**
+   * Displays the click size
+   * @param {Object} sizes - List of the sizes
+   */
   function clickedSize(sizes) {
     for(let i = 0; i < sizes.length; i++) {
       sizes[i].addEventListener("click", function(event) {
-        id("size-btn").textContent = event.target.textContent;
+        let clickSize = event.target.textContent;
+        id("size-btn").textContent = clickSize;
+        localStorage.setItem("clicked-size", clickSize);
       });
+    }
+  }
+
+  function buyNow() {
+    id("buy-btn").addEventListener("click", checkLogin);
+    
+  }
+
+  function checkLogin() {
+    let loged = localStorage.getItem("login");
+    if(loged === "false") {
+      console.log("Unbale to buy without an account");
+    } else {
+      console.log("please wait");
     }
   }
 
