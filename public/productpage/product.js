@@ -42,18 +42,24 @@
   }
 
   function buyNow() {
-    id("buy-btn").addEventListener("click", checkLogin);
-    
+    id("buy-btn").addEventListener("click", function() {
+      let loged = localStorage.getItem("login");
+    if(loged === "false") {
+      id("no-log").classList.remove("hidden");
+    }
+    if(id("size-btn").textContent === "Sizes") {
+      id("no-size").classList.remove("hidden");
+    } else {
+      window.location.href = "purchase.html";
+      confirmationDisplay();
+    }
+    });
   }
 
-  function checkLogin() {
-    let loged = localStorage.getItem("login");
-    if(loged === "false") {
-      console.log("Unbale to buy without an account");
-    } else {
-      console.log("please wait");
-    }
+  function confirmationDisplay() {
+    console.log("hey!")
   }
+
 
 
   /** ------------------------------ Helper Functions  ------------------------------ */
