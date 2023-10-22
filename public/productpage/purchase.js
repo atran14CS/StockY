@@ -8,70 +8,13 @@
    * init of webpage
    */
   function init() {
-    qs("h1").addEventListener("click", function() {
-      window.location.href = "../index.html";
-    });
-    loadProduct();
-    let sizes = qsa(".dropdown-item");
-    clickedSize(sizes);
-    buyNow();
+    loadSneakerImg();
   }
-
-  /**
-   * Loads the clicked product page with the item clicked and the data for it.
-   */
-  function loadProduct() {
-    let pic = localStorage.getItem("clicked-product");
-    document.getElementById("clicked-item").src = "../trending-sneaker/" + pic + ".jpeg";
-    id("item-name").textContent = pic.replace(/-/g, ' ');
-    id("lowest-ask").textContent = "Lowest Ask: " + localStorage.getItem("lowest-ask");
-  }
-
-  /**
-   * Displays the click size
-   * @param {Object} sizes - List of the sizes
-   */
-  function clickedSize(sizes) {
-    for(let i = 0; i < sizes.length; i++) {
-      sizes[i].addEventListener("click", function(event) {
-        let clickSize = event.target.textContent;
-        id("size-btn").textContent = clickSize;
-        localStorage.setItem("clicked-size", clickSize);
-      });
-    }
-  }
-
-  function buyNow() {
-    id("buy-btn").addEventListener("click", function() {
-    let loged = localStorage.getItem("login");
-    let size = id("size-btn").textContent;
-    checkLoged(loged);
-    chcekSizes(size);
-    if(size !== "Sizes" && loged !== "false") {
-      window.location.href = "purchase.html";
-      confirmationDisplay();
-    }
-    });
-  }
-
-  function checkLoged(loged) {
-    if(loged === "false") {
-      id("no-log").classList.remove("hidden");
-    } else {
-      id("no-log").classList.add("hidden");
-    }
-  }
-
-  function chcekSizes(size) {
-    if(size === "Sizes") {
-      id("no-size").classList.remove("hidden");
-    } else {
-      id("no-size").classList.add("hidden");
-    }
-  }
-
-  function confirmationDisplay() {
-    console.log("hey!")
+  function loadSneakerImg() {
+    let imgSrc = localStorage.getItem("clicked-product");
+    let buyImage = gen("img");
+    buyImage.src = "../trending-sneaker/" + imgSrc + ".jpeg";
+    id("img").appendChild(buyImage);
   }
 
 
