@@ -8,13 +8,13 @@
    * init of webpage
    */
   function init() {
-    loadSneakerImg();
+    loadSneakerInfo();
   }
-  function loadSneakerImg() {
-    let imgSrc = localStorage.getItem("clicked-product");
-    let buyImage = gen("img");
-    buyImage.src = "../trending-sneaker/" + imgSrc + ".jpeg";
-    id("img").appendChild(buyImage);
+
+  function loadSneakerInfo() {
+    let imgSrc = "../trending-sneaker/" + localStorage.getItem("clicked-product") + ".jpeg";
+    id("img").src = imgSrc;
+    id("clicked-size").textContent = "Size " + localStorage.getItem("clicked-size");
   }
 
 
