@@ -88,6 +88,8 @@
     formData.append("password", passwordValue);
     formData.append("fname", fnameValue);
     formData.append("lname", lnameValue);
+    console.log(fnameValue);
+    console.log(lnameValue);
     fetch("/signup", {method: "POST", body: formData})
       .then(statusCheck)
       .then(res=>res.text())

@@ -9,6 +9,9 @@
    */
   function init() {
     loadSneakerInfo();
+    id("back").addEventListener("click", function() {
+      window.location.href="./product.html";
+    });
   }
 
   function loadSneakerInfo() {

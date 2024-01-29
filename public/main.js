@@ -24,7 +24,7 @@
           window.location.href = "user-page/userpage.html";
         });
       } else {
-        id("login").textContent = "Login/Sign Up";
+        id("login-sign").textContent = "Login/Sign Up";
         id("login-sign").addEventListener("click", function() {
           window.location.href = "loginPage/login.html";
         });

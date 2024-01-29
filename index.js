@@ -45,23 +45,27 @@ app.post('/login', async(req, res) => {
       res.send("Missing either password or username");
     } else {
       let db = await getDBConnection();
-      let email = req.body.email;
-      let password = req.body.password;
-      let query = "SELECT email FROM Users WHERE email = ? and password = ?";
-      let result = await db.get(query, [email, password]);
-      if (result) {
-        res.type('text').send("successful login");
+      try {
+        let email = req.body.email;
+        let password = req.body.password;
+        let query = "SELECT email FROM Users WHERE email = ? and password = ?";
+        let result = await db.get(query, [email, password]);
+        if (result) {
+          res.type('text').send("successful login");
+        } else {
+          res.status(400);
+          res.type('text');
+          res.send("Invalid username or password");
+        }
+      } finally {
         await db.close();
-      } else {
-        res.status(400);
-        res.type('text');
-        res.send("Invalid username or password");
       }
     }
   } catch (err) {
+    console.log(err);
     res.status(500);
     res.type('text');
-    res.send('an error has occured in our server please check back again later');
+    res.send('an error has occurred in our server, please check back again later');
   }
 });
 
@@ -73,24 +77,28 @@ app.post('/user/profile', async (req, res) => {
       res.send("Missing Email");
     } else {
       let db = await getDBConnection();
-      let email = req.body.email;
-      let query = "SELECT * FROM Users WHERE email = ?";
-      let result = await db.get(query, email);
-      if (result) {
-        res.json(result);
+      try {
+        let email = req.body.email;
+        let query = "SELECT * FROM Users WHERE email = ?";
+        let result = await db.get(query, email);
+        if (result) {
+          res.json(result);
+        } else {
+          res.status(400);
+          res.type('text');
+          res.send("no information found on user");
+        }
+      } finally {
         await db.close();
-      } else {
-        res.status(400);
-        res.type('text');
-        res.send("no informaion found on user");
       }
     }
   } catch(err) {
+    console.log(err);
     res.status(500);
     res.type('text');
-    res.send("an error has occured in our server please try again later");
+    res.send("an error has occurred in our server, please try again later");
   }
-})
+});
 
 app.post('/signup', async (req, res) => {
   try {
@@ -100,25 +108,29 @@ app.post('/signup', async (req, res) => {
       res.send("Missing one or more sign-up parameters");
     } else {
       let db = await getDBConnection();
-      let fname = req.body.firstName;
-      let lname = req.body.lastName;
-      let email = req.body.email;
-      let password = req.body.password;
-      let queryCheck = "SELECT * FROM USERS WHERE email = ?";
-      let result = await db.get(queryCheck, email);
-      if(result) {
-        res.status(400).send("Email is already taken");
-      } else {
-        let query = "INSERT INTO Users (email, password, fname, lname) VALUES(?, ?, ?, ?)";
-        await db.run(query, [email, password, fname, lname]);
-        res.status(200).send("User created successfully");
+      try {
+        let fname = req.body.fname;
+        let lname = req.body.lname;
+        let email = req.body.email;
+        let password = req.body.password;
+        let queryCheck = "SELECT * FROM USERS WHERE email = ?";
+        let result = await db.get(queryCheck, email);
+        if(result) {
+          res.status(400).send("Email is already taken");
+        } else {
+          let query = "INSERT INTO Users (email, password, fname, lname) VALUES(?, ?, ?, ?)";
+          await db.run(query, [email, password, fname, lname]);
+          res.status(200).send("User created successfully");
+        }
+      } finally {
         await db.close();
       }
     }
   } catch(err) {
+    console.log(err);
     res.status(500);
     res.type('text');
-    res.send("an error has occured in our server please try again later");
+    res.send("an error has occurred in our server, please try again later");
   }
 });
 

@@ -30,11 +30,9 @@
   }
 
   function displayUserInfo(data) {
-    console.log(data);
     let email = data.email;
     let bids = data.bids;
     let purchases = data.purchases;
-    console.log(email);
     id("email").appendChild(displayUserInfoHelper(email));
     id("bids").appendChild(displayUserInfoHelper(bids));
     id("purchases").appendChild(displayUserInfoHelper(purchases));
